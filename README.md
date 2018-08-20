@@ -1,2 +1,2 @@
-# Four-Functions-Suffice
-Uses the elementary arithmetic operators (+, -, *, /) to approximate more complex behavior.
+# Four Functions Suffice
+Evolves functions from the four elementary operators (+, -, *, /) in order to approximate more complex functions.

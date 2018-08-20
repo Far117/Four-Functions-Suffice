@@ -68,21 +68,41 @@ public class Main
 		
 		//System.out.println(e.collapse(100));
 		
+		/*
+		Mathling m1 = new Mathling();
+		
+		System.out.println(m1.printExpression());
+		System.out.println("======================");
+		
+		Mathling m2 = m1.getMutation();
+		
+		System.out.println(m1.printExpression());
+		System.out.println("======================");
+		
+		System.out.println(m2.printExpression());
+		*/
+		
 		for (int i = 0; i < 100; i++)
 		{
 			mathlings[i] = new Mathling();
 		}
 		
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < 1000000; i++)
 		{
 			calculateAccuracies(mathlings);
 			repopulateMathlings(mathlings);
+			
+			if (i % 10000 == 0)
+				writeResults(mathlings[0].getAccuracy(), mathlings[0].printExpression());
 		}
 		
 		System.out.println("Winner with " + mathlings[0].getAccuracy() + ":");
 		System.out.println(mathlings[0].printExpression());
 		
+		System.out.println(mathlings[0].getAccuracy());
+		
 		writeResults(mathlings[0].getAccuracy(), mathlings[0].printExpression());
+		
 	}
 	
 	private static void writeResults(double accuracy, String results)

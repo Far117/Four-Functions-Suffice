@@ -14,7 +14,7 @@ public class Mathling
 	// 0% will always mutate a terminal node
 	private double mutationSignificance = 30;
 	
-	private static final double[] odds = {25, 25};
+	private static final double[] odds = {30, 30};
 	
 	public Mathling()
 	{
@@ -44,11 +44,10 @@ public class Mathling
 		for (int i = 0; i < 100; i++)
 		{
 			final double rand = RandomExpression.randMinMax(minTest, maxTest);
-			this.accuracy += (this.collapse(rand) - f.compute(rand));
+			this.accuracy += Math.abs((this.collapse(rand) - f.compute(rand)));
 		}
 		
 		this.accuracy /= 100;
-		this.accuracy = Math.abs(this.accuracy);
 		
 		return;
 	}

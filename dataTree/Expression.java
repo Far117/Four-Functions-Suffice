@@ -58,6 +58,11 @@ public class Expression
 		return f.compute(this.right.collapse(input), this.left.collapse(input));
 	}
 	
+	public double shiftNumber(double amount)
+	{
+		return this.num += amount;
+	}
+	
 	public double collapse(double input)
 	{
 		double result = 0;
@@ -132,5 +137,15 @@ public class Expression
 	public char getOperator()
 	{
 		return this.operator;
+	}
+	
+	public double getNum()
+	{
+		return this.num;
+	}
+	
+	public char getVariable()
+	{
+		return this.variable;
 	}
 }

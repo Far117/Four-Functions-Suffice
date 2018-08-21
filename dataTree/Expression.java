@@ -126,12 +126,12 @@ public class Expression
 	
 	public Expression getLeft()
 	{
-		return this.left;
+		return ExpressionCopier.copy(this.left);
 	}
 	
 	public Expression getRight()
 	{
-		return this.right;
+		return ExpressionCopier.copy(this.right);
 	}
 	
 	public char getOperator()

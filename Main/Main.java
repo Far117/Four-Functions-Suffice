@@ -8,6 +8,8 @@ import java.util.Arrays;
 import Mathling.Mathling;
 import Mathling.MathlingComparator;
 import Mathling.RandomExpression;
+import dataTree.Expression;
+import transpile.ToPython;
 
 
 public class Main
@@ -81,6 +83,7 @@ public class Main
 		
 		System.out.println(m2.printExpression());
 		*/
+		//test();
 		
 		for (int i = 0; i < 100; i++)
 		{
@@ -92,8 +95,14 @@ public class Main
 			calculateAccuracies(mathlings);
 			repopulateMathlings(mathlings);
 			
-			if (i % 10000 == 0)
+			if (i % 1000 == 0)
+			{
+				System.out.println("" + i + "\t" + mathlings[0].getAccuracy());
 				writeResults(mathlings[0].getAccuracy(), mathlings[0].printExpression());
+				new ToPython().transpileToFile(
+						"output.py", 
+						mathlings[0].getExpression());
+			}
 		}
 		
 		System.out.println("Winner with " + mathlings[0].getAccuracy() + ":");
@@ -101,13 +110,36 @@ public class Main
 		
 		System.out.println(mathlings[0].getAccuracy());
 		
-		writeResults(mathlings[0].getAccuracy(), mathlings[0].printExpression());
+		writeResults(mathlings[0].getAccuracy(), 
+					mathlings[0].printExpression());
+		
+		new ToPython().transpileToFile(
+				"output.py", 
+				mathlings[0].getExpression());
+	}
+	
+	private static void test()
+	{
+		Mathling[] mathlings = new Mathling[2];
+		
+		mathlings[0] = new Mathling();
+		mathlings[1] = new Mathling();
+		
+		while (true)
+		{
+			for (Mathling m : mathlings)
+				m.calculateAccuracy((x) -> testFunction(x));
+			
+			Arrays.sort(mathlings, MathlingComparator.comparator);
+			
+			mathlings[1] = mathlings[0].getMutation();
+		}
 		
 	}
 	
 	private static void writeResults(double accuracy, String results)
 	{
-		String toWrite = "This function is accurate to within ";
+		String toWrite = "This function has an average error of ";
 		toWrite += accuracy + ":\n\n" + results;
 		
 		try

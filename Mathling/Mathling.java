@@ -1,6 +1,7 @@
 package Mathling;
 import Main.Computable;
 import dataTree.Expression;
+import dataTree.ExpressionCopier;
 
 public class Mathling
 {
@@ -41,22 +42,30 @@ public class Mathling
 	public void calculateAccuracy(Computable f)
 	{
 		this.accuracy = 0;
-		for (int i = 0; i < 100; i++)
+		for (int i = (int) minTest; i < (int) maxTest; i++)
 		{
-			final double rand = RandomExpression.randMinMax(minTest, maxTest);
-			this.accuracy += Math.abs((this.collapse(rand) - f.compute(rand)));
+			//final double rand = RandomExpression.randMinMax(minTest, maxTest);
+			//this.accuracy += Math.abs((this.collapse(rand) - f.compute(rand)));
+			this.accuracy += Math.abs((this.collapse(i) - f.compute(i)));
 		}
 		
-		this.accuracy /= 100;
+		this.accuracy /= Math.abs((int) minTest - (int) maxTest);
 		
 		return;
 	}
 	
 	public Mathling getMutation()
 	{
-		return new Mathling(RandomExpression.mutateExpression(this.expr,
-				this.mutationSignificance,
-				Mathling.odds));
+		return new Mathling(
+				RandomExpression.mutateExpression(
+						ExpressionCopier.copy(this.expr),
+						this.mutationSignificance,
+						Mathling.odds));
+	}
+	
+	public Expression getExpression()
+	{
+		return ExpressionCopier.copy(this.expr);
 	}
 	
 	public double getAccuracy()

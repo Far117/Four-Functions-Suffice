@@ -1,5 +1,9 @@
 package transpile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import expression.Expression;
 
 /**
@@ -50,8 +54,8 @@ public interface Transpiler
 	}
 	
 	/**
-	 * An abstract wrapper function which will not only transpile
-	 * an {@code Expression}, but also save it as an appropriate source file.
+	 * An wrapper function which will not only transpile an {@code Expression},
+	 * but also save it as an appropriate source file.
 	 * 
 	 * @param fileName	The name of the destination file, including extention.
 	 * @param e			The {@code Expression} to transpile.
@@ -59,5 +63,14 @@ public interface Transpiler
 	 * @see	#transpile(Expression)
 	 * @see expression.Expression
 	 */
-	public void transpileToFile(String fileName, Expression e);
+	default void transpileToFile(String fileName, Expression e)
+	{
+		try {
+			Files.write(Paths.get(fileName), transpile(e).getBytes());
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		return;
+	}
 }

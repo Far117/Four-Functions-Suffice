@@ -9,7 +9,7 @@ import mathling.MathlingMutator;
  * of the {@code Expression}'s inner function. When many numbers need
  * to be passed through a single {@code Expression}, it is more efficient
  * to generate a thunklet and pass them through that than to {@code collapse}
- * the function each time. <br/><br/>
+ * the function each time. <br><br>
  * 
  * Note: However, when only running a few iterations, or when dealing with
  * purely numerical or variable {@code Expression} types, {@code collapse}

@@ -5,9 +5,9 @@ import expression.Expression;
 public class ToJava implements Transpiler
 {
 	private static final String firstHalf  = 
-			"class Main\n{\n\tpublic static void main(String[] args)\n\t{\n\t\tSystem.out.println(",
+			"class FourFunctionsSuffice\n{\n\tpublic static double func(final double x)\n\t{\n\t\treturn ",
 								secondHalf =
-			");\n\t}\n}";
+			";\n\t}\n}";
 								
 	@Override
 	public String transpile(Expression e)

@@ -1,31 +1,35 @@
 package expression;
 
+import java.io.Serializable;
+
 import lambdaType.BinaryFunction;
 
 /**
  *
  * An {@code Expression} is a tree which encapsulates arbitrary
- * mathematical functions according to a specific grammar.	<br/><br/>
+ * mathematical functions according to a specific grammar.	<br><br>
  * 
- * The grammar is as follows:								<br/><br/>
+ * The grammar is as follows:								<br><br>
  * 
- * Number		=	At least one digit.						<br/>
- * Variable 	=	A single letter.						<br/>
- * Operator 	=	Either '+', '-', '*', or '/'.			<br/><br/>
+ * Number		=	At least one digit.						<br>
+ * Variable 	=	A single letter.						<br>
+ * Operator 	=	Either '+', '-', '*', or '/'.			<br><br>
  *
- * Expression 	=	Either:									<br/>
- * 						{@code<Number>}		Or				<br/>
- * 						{@code<Variable>}	Or				<br/>
- * 						{@code<Expression>} {@code<Operator>} {@code<Expression>}
- * <br/><br/>
+ * Expression 	=	Either:									<br>
+ * 						{@code <Number>}		Or			<br>
+ * 						{@code <Variable>}	Or				<br>
+ * 						{@code <Expression>} {@code <Operator>} {@code <Expression>}
+ * <br><br>
  * This grammar ensures that any function generated will be
- * valid and computable.<br/><br/>
+ * valid and computable.<br><br>
  * 
  * Note: Testing for division by zero should still be done, as the
  * grammar does not account for that.
  */
-public class Expression
+public class Expression implements Serializable
 {
+	private static final long serialVersionUID = 4357648774888332638L;
+	
 	private ExpressionType type = null;
 	private double num = 0;
 	private char variable = ' ';

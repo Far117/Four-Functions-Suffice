@@ -50,7 +50,7 @@ public class MathlingMutator
 	 * Recursively generates a new, random {@code Expression}, where the
 	 * odds of each node being one of the three types of {@code Expression}s
 	 * is determined by the input array.
-	 * <br/><br/>
+	 * <br><br>
 	 * 
 	 * Currently this function has no way to stop when a tree becomes too
 	 * large. This means it may ambitiously eat up all of the allotted stack
@@ -88,7 +88,7 @@ public class MathlingMutator
 	/**
 	 * This gets around the {@code StackOverflowError} by repeatedly
 	 * retrying the function until it works.
-	 * <br/><br/>
+	 * <br><br>
 	 * 
 	 * Note: This does affect the probability! Odds of {@code [0.1, 0.1]}
 	 * will almost certainly overflow, and further repeats will almost
@@ -97,7 +97,7 @@ public class MathlingMutator
 	 * probability of a complex {@code Expression} is almost 0% instead
 	 * of the expected 99.8%. Increase the odds of the former two if
 	 * this ends up happening.
-	 * <br/><br/>
+	 * <br><br>
 	 * 
 	 * Testing still needs to be done to find the optimal odds for
 	 * generation of complex {@code Expression}s.

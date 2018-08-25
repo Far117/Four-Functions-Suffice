@@ -4,6 +4,8 @@ import expression.ExpressionCopier;
 import lambdaType.Computable;
 import lambdaType.Thunklet;
 
+import java.io.Serializable;
+
 /**
  * A {@code Mathling} is a personification of a wrapper for an 
  * {@code Expression}. Their purpose it to track the accuracy of
@@ -11,19 +13,21 @@ import lambdaType.Thunklet;
  * they're trying to emulate. A "good {@code Mathling}" will
  * therefore behave very closely to the function it approximates ---
  * the closer the better.
- * <br/><br/>
+ * <br><br>
  * 
  * {@code Mathling}s' "aliveness" also helps to remind that 
  * these evolve while pure {@code Expression}s should remain immutable.
- * <br/><br/>
+ * <br><br>
  * 
  * The simulation itself is conducted in {@link main.Main}
  * 
  * @see	expression.Expression
  * @see main.Main
  */
-public class Mathling
+public class Mathling implements Serializable
 {
+	private static final long serialVersionUID = 29904252468444646L;
+	
 	private Expression expr = null;
 	private double accuracy = 0;
 	
@@ -82,7 +86,7 @@ public class Mathling
 	/**
 	 * Given a lambda, find the average difference between the
 	 * {@code Expression}'s approximation and the goal function's result.
-	 * <br/><br/>
+	 * <br><br>
 	 * 
 	 * Note: Calculates the error across the range of {@code minTest} and
 	 * {@code maxTest}.

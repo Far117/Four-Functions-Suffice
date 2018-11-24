@@ -49,7 +49,9 @@ public class Simulation
 	{
 		long t1 = System.currentTimeMillis();
 		for (Mathling m : mathlings)
+		{
 			m.calculateAccuracy((x) -> testFunction(x));
+		}
 		
 		long t2 = System.currentTimeMillis();
 		collapseTime += (t2 - t1);
@@ -176,7 +178,7 @@ public class Simulation
 	 */
 	public static void runSimulation(Mathling[] mathlings)
 	{
-		for (int i = 0; i < 1000000; i++)
+		for (int i = 0; i < 1000000000; i++)
 		{
 			calculateAccuracies(mathlings);
 			repopulateMathlings(mathlings);

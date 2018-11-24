@@ -1,6 +1,8 @@
 package mathling;
+import expression.DivideByZeroError;
 import expression.Expression;
 import expression.ExpressionCopier;
+import expression.Simplifier;
 import lambdaType.Computable;
 import lambdaType.Thunklet;
 
@@ -78,7 +80,7 @@ public class Mathling implements Serializable
 	 * @param input	The real number to pass to this {@code Mathling}'s {@code Expression}.
 	 * @return		The result of the {@code Expression}'s calculation.
 	 */
-	public double collapse(double input)
+	public double collapse(double input) throws DivideByZeroError
 	{
 		return this.expr.collapse(input);
 	}
@@ -98,23 +100,40 @@ public class Mathling implements Serializable
 	public void calculateAccuracy(Computable f)
 	{
 		this.accuracy = 0;
+		int terms = Math.abs((int) minTest - (int) maxTest);
 		//if (this.expr.getType() == ExpressionType.COMPLEX)
 		//{
 		//	calculateAccuracyThunklet(f);
 		//	return;
 		//}
-			
 		
-		for (int i = (int) minTest; i < (int) maxTest; i += 1)
+		for (int i = (int) minTest; i < (int) maxTest; i++)
 		{
-			//final double rand = RandomExpression.randMinMax(minTest, maxTest);
-			//this.accuracy += Math.abs((this.collapse(rand) - f.compute(rand)));
-			//this.accuracy += Math.abs((thunklet.compute(i) - f.compute(i)));
-			this.accuracy += Math.abs((this.collapse(i) - f.compute(i)));
-			
+			try {
+				double bump = Math.abs(this.collapse(i) - f.compute(i));
+				this.accuracy += bump;
+			} catch (DivideByZeroError err) {
+				Expression tryToSimplify = Simplifier.simplify(this.expr);
+				if (!tryToSimplify.equivalent(this.expr))
+				{
+					this.expr = tryToSimplify;
+					this.calculateAccuracy(f);
+					return;
+				}
+				else
+				{
+					terms--;
+				}
+			}
 		}
 		
-		this.accuracy /= (Math.abs((int) minTest - (int) maxTest) / 1);
+		if (terms > 0)
+			this.accuracy /= terms;
+		else
+		{
+			this.accuracy = 1000;
+		}
+			
 		
 		return;
 	}
@@ -130,17 +149,20 @@ public class Mathling implements Serializable
 	public void calculateAccuracyThunklet(Computable f)
 	{
 		this.accuracy = 0;
+		int terms = Math.abs((int) minTest - (int) maxTest);
 		Computable thunklet = Thunklet.makeThunklet(this.expr);
 		
 		for (int i = (int) minTest; i < (int) maxTest; i += 1)
 		{
-			//final double rand = RandomExpression.randMinMax(minTest, maxTest);
-			//this.accuracy += Math.abs((this.collapse(rand) - f.compute(rand)));
-			//this.accuracy += Math.abs((this.collapse(i) - f.compute(i)));
-			this.accuracy += Math.abs((thunklet.compute(i) - f.compute(i)));
+			try {
+				final double bump = Math.abs((thunklet.compute(i) - f.compute(i)));
+				this.accuracy += bump;
+			} catch (DivideByZeroError err) {
+				terms--;
+			}
 		}
 		
-		this.accuracy /= (Math.abs((int) minTest - (int) maxTest) / 1);
+		this.accuracy /= terms;
 		
 		return;
 	}

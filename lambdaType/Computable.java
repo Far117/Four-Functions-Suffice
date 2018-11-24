@@ -1,5 +1,7 @@
 package lambdaType;
 
+import expression.DivideByZeroError;
+
 /**
  * This is an interface meant to be used with lambdas, and
  * encapsulates lambdas representing {@code Real->Real} functions.
@@ -7,5 +9,5 @@ package lambdaType;
  */
 public interface Computable
 {
-	double compute(double input);
+	double compute(double input) throws DivideByZeroError;
 }

@@ -1,5 +1,7 @@
 package lambdaType;
 
+import expression.DivideByZeroError;
+
 /**
  * 
  * A {@code BinaryFunction} is meant to encapsulate functions such as
@@ -8,5 +10,5 @@ package lambdaType;
  */
 public interface BinaryFunction
 {
-	double compute(double a, double b);
+	double compute(double a, double b) throws DivideByZeroError;
 }

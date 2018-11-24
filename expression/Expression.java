@@ -107,7 +107,7 @@ public class Expression implements Serializable
 	 * @return		The function's resulting calculated number.
 	 * @see			#solveExpression(double)
 	 */
-	public double collapse(double input)
+	public double collapse(double input) throws DivideByZeroError
 	{
 		double result = 0;
 		
@@ -137,7 +137,7 @@ public class Expression implements Serializable
 	 * @see			BinaryFunction
 	 * @see			#makeFunction()
 	 */
-	private double solveExpression(double input)
+	private double solveExpression(double input) throws DivideByZeroError
 	{
 		BinaryFunction f = makeFunction();
 		return f.compute(	this.left.collapse(input),
@@ -162,7 +162,11 @@ public class Expression implements Serializable
 			case '*':
 				return (x, y) -> x * y;
 			case '/':
-				return (x, y) -> (y == 0)? 0 : x / y;
+				return (x, y) -> {
+					if (y == 0)
+						throw new DivideByZeroError();
+					else
+						return x / y;};
 				
 			default:
 				System.out.println("Error: Unknown function " + this.operator);
@@ -292,5 +296,25 @@ public class Expression implements Serializable
 	public char getOperator()
 	{
 		return this.operator;
+	}
+	
+	public boolean equivalent(Expression other)
+	{
+		if (this.type != other.getType())
+			return false;
+		
+		switch (this.type)
+		{
+			case NUMBER:
+				return this.num == other.getNum();
+			case VARIABLE:
+				return this.variable == other.getVariable();
+			case COMPLEX:
+				return (this.operator == other.getOperator()	&&
+						this.left.equivalent(other.getLeft())	&&
+						this.right.equivalent(other.getRight()));
+		}
+		
+		return false;
 	}
 }

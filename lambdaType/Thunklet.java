@@ -1,5 +1,6 @@
 package lambdaType;
 
+import expression.DivideByZeroError;
 import expression.Expression;
 import mathling.MathlingMutator;
 
@@ -53,6 +54,7 @@ public class Thunklet
 	/**
 	 * A helper function for testing {@code Thunklet} performance.
 	 */
+	/*
 	public static void testThunklet()
 	{
 		Expression e = MathlingMutator.newExpressionSafe(new double[] {15,15});
@@ -72,5 +74,5 @@ public class Thunklet
 		endTime = System.currentTimeMillis();
 		
 		System.out.println("Thunk time: " + (endTime - startTime));
-	}
+	}*/
 }
